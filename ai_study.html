@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 스터디 홈페이지</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    header {
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1;
+    }
+
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+
+    nav li {
+      margin-right: 20px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+
+    #bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('118318870.1.jpg') no-repeat center center;
+      background-size: cover;
+    }
+
+    #pattern {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    h1 {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 100px;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#">모임 소개</a></li>
+        <li><a href="#">공부 자료</a></li>
+        <li><a href="#">커뮤니티</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div id="bg"></div>
+  <div id="pattern"></div>
+  
+  <h1>AI 다함께 공부해볼까요?</h1>
+
+  <script>
+    const pattern = document.getElementById('pattern');
+    const patternSize = 50;
+
+    for (let i = 0; i < window.innerWidth / patternSize; i++) {
+      for (let j = 0; j < window.innerHeight / patternSize; j++) {
+        const patternBlock = document.createElement('div');
+        patternBlock.style.position = 'absolute';
+        patternBlock.style.left = i * patternSize + 'px';
+        patternBlock.style.top = j * patternSize + 'px';
+        patternBlock.style.width = patternSize + 'px';
+        patternBlock.style.height = patternSize + 'px';
+        patternBlock.style.backgroundColor = 'rgba(0, 0, 0, 1)';
+        pattern.appendChild(patternBlock);
+      }
+    }
+
+    document.addEventListener('mousemove', e => {
+      const patternBlocks = document.querySelectorAll('#pattern div');
+      patternBlocks.forEach(block => {
+        const dx = block.offsetLeft + patternSize / 2 - e.clientX;
+        const dy = block.offsetTop + patternSize / 2 - e.clientY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const opacity = Math.max(0, dist / 500);
+        block.style.backgroundColor = `rgba(0, 0, 0, ${opacity})`;
+      });
+    });
+  </script>
+</body>
+</html>
